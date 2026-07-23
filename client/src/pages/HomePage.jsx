@@ -5,6 +5,10 @@ function HomePage() {
     <div className="page landing-page">
       <section className="hero-panel">
         <div className="hero-copy">
+          <div className="brand-badge">
+            <img src="/jobai-logo.svg" alt="JobAI Assistant logo" />
+            <span>JobAI Assistant</span>
+          </div>
           <p className="eyebrow">AI-powered career assistant</p>
           <h1>Apply smarter, get hired faster.</h1>
           <p className="subtitle">

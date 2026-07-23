@@ -22,8 +22,15 @@ function DashboardPage() {
 
   return (
     <div className="page">
-      <h1>Dashboard</h1>
-      <p className="page-intro">Monitor your application pipeline and jump into the tools that move your search forward.</p>
+      <div className="dashboard-heading">
+        <div className="dashboard-title-group">
+          <img src="/jobai-logo.svg" alt="JobAI Assistant logo" className="dashboard-logo" />
+          <div>
+            <h1>Dashboard</h1>
+            <p className="page-intro">Monitor your application pipeline and jump into the tools that move your search forward.</p>
+          </div>
+        </div>
+      </div>
 
       <div className="dashboard-grid">
         <div className="panel stat-card">

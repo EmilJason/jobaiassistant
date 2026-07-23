@@ -151,6 +151,41 @@ body {
   padding: 2rem;
 }
 
+.brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.14);
+  margin-bottom: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.brand-badge img,
+.dashboard-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+}
+
+.auth-brand {
+  justify-content: center;
+  margin-bottom: 0.8rem;
+}
+
+.dashboard-heading {
+  margin-bottom: 1rem;
+}
+
+.dashboard-title-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
 .hero-card {
   background: linear-gradient(135deg, rgba(79,140,255,0.25), rgba(124,77,255,0.2));
   border: 1px solid rgba(255,255,255,0.16);

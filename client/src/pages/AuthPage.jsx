@@ -38,6 +38,10 @@ function AuthPage() {
   return (
     <div className="page auth-page">
       <div className="panel auth-card">
+        <div className="brand-badge auth-brand">
+          <img src="/jobai-logo.svg" alt="JobAI Assistant logo" />
+          <span>JobAI Assistant</span>
+        </div>
         <h1>{isRegister ? 'Create account' : 'Welcome back'}</h1>
         <p className="page-intro">
           {isRegister
