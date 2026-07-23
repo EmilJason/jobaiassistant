@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import FeatureCards from '../components/FeatureCards';
+import { getDashboardData } from '../services/appClient';
 
 function DashboardPage() {
   const [data, setData] = useState(null);
@@ -6,9 +8,8 @@ function DashboardPage() {
 
   useEffect(() => {
     const load = async () => {
-      const response = await fetch('/api/dashboard');
-      const payload = await response.json();
-      setData(payload);
+      const payload = await getDashboardData();
+      setData(payload.data);
       setLoading(false);
     };
 
@@ -22,7 +23,7 @@ function DashboardPage() {
   return (
     <div className="page">
       <h1>Dashboard</h1>
-      <p className="page-intro">Monitor your application pipeline and recent activity.</p>
+      <p className="page-intro">Monitor your application pipeline and jump into the tools that move your search forward.</p>
 
       <div className="dashboard-grid">
         <div className="panel stat-card">
@@ -44,9 +45,14 @@ function DashboardPage() {
       </div>
 
       <div className="panel">
+        <h2>Start with your next step</h2>
+        <FeatureCards />
+      </div>
+
+      <div className="panel">
         <h2>Recent Applications</h2>
         {data.recentJobs.length === 0 ? (
-          <p>No applications yet.</p>
+          <p>No applications yet. Add one in the job tracker to begin building momentum.</p>
         ) : (
           <ul className="job-list">
             {data.recentJobs.map((job) => (

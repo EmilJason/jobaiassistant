@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { loginUser, registerUser, socialLogin as socialLoginService } from '../services/appClient';
 
 function AuthPage() {
   const location = useLocation();
@@ -11,36 +12,26 @@ function AuthPage() {
 
   const submit = async (e) => {
     e.preventDefault();
-    const endpoint = isRegister ? '/api/register' : '/api/login';
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
-    });
-    const data = await response.json();
-    if (!response.ok) {
-      setMessage(data.message || 'Authentication failed');
+    const result = isRegister
+      ? await registerUser(email, password)
+      : await loginUser(email, password);
+
+    if (!result.ok) {
+      setMessage(result.data?.message || 'Authentication failed');
       return;
     }
 
-    localStorage.setItem('jobai_token', data.token || email);
     setMessage(isRegister ? 'Account created successfully' : 'Logged in successfully');
     navigate('/dashboard');
   };
 
   const socialLogin = async (provider) => {
-    const response = await fetch(`/api/auth/${provider}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, providerId: `${provider}-${email || 'demo'}` })
-    });
-    const data = await response.json();
-    if (!response.ok) {
-      setMessage(data.message || 'Social login failed');
+    const result = await socialLoginService(provider, email);
+    if (!result.ok) {
+      setMessage(result.data?.message || 'Social login failed');
       return;
     }
 
-    localStorage.setItem('jobai_token', data.token || `${provider}-${email || 'demo'}`);
     navigate('/dashboard');
   };
 

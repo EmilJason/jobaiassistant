@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { checkAtsScore } from '../services/appClient';
 
 function AtsCheckerPage() {
   const [resume, setResume] = useState('');
@@ -9,13 +10,8 @@ function AtsCheckerPage() {
   const submit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const response = await fetch('/api/ats-checker', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ resume, jobDescription })
-    });
-    const data = await response.json();
-    setResult(data);
+    const response = await checkAtsScore(resume, jobDescription);
+    setResult(response.data);
     setLoading(false);
   };
 

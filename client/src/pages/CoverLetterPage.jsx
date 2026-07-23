@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { generateCoverLetter } from '../services/appClient';
 
 function CoverLetterPage() {
   const [role, setRole] = useState('');
@@ -10,13 +11,8 @@ function CoverLetterPage() {
   const submit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const response = await fetch('/api/cover-letter', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ role, company, experience })
-    });
-    const data = await response.json();
-    setLetter(data.letter);
+    const response = await generateCoverLetter(role, company, experience);
+    setLetter(response.data.letter);
     setLoading(false);
   };
 

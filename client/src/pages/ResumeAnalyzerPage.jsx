@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { analyzeResume } from '../services/appClient';
 
 function ResumeAnalyzerPage() {
   const [resume, setResume] = useState('');
@@ -8,13 +9,8 @@ function ResumeAnalyzerPage() {
   const submit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const response = await fetch('/api/resume-analyzer', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ resume })
-    });
-    const data = await response.json();
-    setResult(data);
+    const response = await analyzeResume(resume);
+    setResult(response.data);
     setLoading(false);
   };
 

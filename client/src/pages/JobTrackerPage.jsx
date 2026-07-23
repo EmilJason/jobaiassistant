@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { createJob, listJobs } from '../services/appClient';
 
 function JobTrackerPage() {
   const [jobs, setJobs] = useState([]);
@@ -6,9 +7,8 @@ function JobTrackerPage() {
   const [loading, setLoading] = useState(false);
 
   const loadJobs = async () => {
-    const response = await fetch('/api/jobs');
-    const data = await response.json();
-    setJobs(data.jobs);
+    const response = await listJobs();
+    setJobs(response.jobs);
   };
 
   useEffect(() => {
@@ -18,13 +18,8 @@ function JobTrackerPage() {
   const submit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const response = await fetch('/api/jobs', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form)
-    });
-    const data = await response.json();
-    setJobs((prev) => [...prev, data.job]);
+    const response = await createJob(form);
+    setJobs((prev) => [...prev, response.job]);
     setForm({ company: '', role: '', status: 'Applied' });
     setLoading(false);
   };
