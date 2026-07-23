@@ -43,6 +43,12 @@ function writeState(state) {
   return state;
 }
 
+function dispatchAuthChanged() {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new Event('auth:changed'));
+  }
+}
+
 function persistToken(token, user = null) {
   const state = readState();
   state.auth = { token, user };
@@ -52,6 +58,7 @@ function persistToken(token, user = null) {
     window.localStorage.setItem(TOKEN_KEY, token);
   }
 
+  dispatchAuthChanged();
   return state;
 }
 
@@ -64,6 +71,7 @@ function clearToken() {
     window.localStorage.removeItem(TOKEN_KEY);
   }
 
+  dispatchAuthChanged();
   return state;
 }
 
